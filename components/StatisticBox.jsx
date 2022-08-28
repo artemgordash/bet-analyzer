@@ -31,13 +31,32 @@ const StyledStack = styled(Stack)((props) => ({
 }));
 
 const StatisticBox = (props) => {
-  const { data, title, team } = props;
+  const { data, title, team, disableCeilForValue } = props;
+  const totalValue = data.reduce((acc, curr) => acc + Number(curr.value), 0);
+  const startTotalValue = data.reduce((acc, curr) =>
+    team.lineUp.includes(curr.name) || team.lineUp.includes(shortFirstName(curr.name)) ?
+      acc + Number(curr.value)
+      : acc + 0, 0);
 
   return (
     <StyledStack
       direction={'column'}
     >
-      <span className={'subtitle'}>{title}</span>
+      <Stack
+        className={'subtitle'}
+        justifyContent={'space-between'}
+      >
+        <span>{title}</span>
+        <Stack>
+          <span style={{ marginLeft: '20px', marginRight: '5px' }}>
+            {disableCeilForValue ? totalValue.toFixed(1) : Math.ceil(totalValue)}
+          </span>
+          {' / '}
+          <span style={{ marginLeft: '5px' }}>
+            {disableCeilForValue ? startTotalValue.toFixed(1) : Math.ceil(startTotalValue)}
+          </span>
+        </Stack>
+      </Stack>
       {
         data.map(player =>
           <div
