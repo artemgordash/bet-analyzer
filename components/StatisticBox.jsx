@@ -9,7 +9,8 @@ import { shortFirstName } from '../functions/shortFirstName';
 
 const StyledStack = styled(Stack)((props) => ({
   '&': {
-    margin: '20px 0'
+    margin: '20px 0',
+    width: '25%'
   },
   '.subtitle': {
     marginBottom: '10px',
@@ -58,10 +59,13 @@ const StatisticBox = (props) => {
         </Stack>
       </Stack>
       {
-        data.map(player =>
+        data.map((player, i) =>
           <div
             key={v4()}
             className={'player-card'}
+            style={{
+              display: i < 6 ? '' : 'none'
+            }}
           >
             {player.name}
             <Stack alignSelf={'end'}>

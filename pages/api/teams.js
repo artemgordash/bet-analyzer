@@ -14,7 +14,8 @@ const selectors = {
   bigChancesFilter: '//li[.="Big chances created"] | //button[.="Big chances created"]',
   interceptionsFilter: '//li[.="Interceptions per game"] | //button[.="Interceptions per game"]',
   topName: '//div[contains(@class, "sc-18688171-0 fXAhuT fw-medium")]',
-  topValue: '//div[contains(@class, "sc-cd4cfbdc-0 sc-a2e18b6f-2 hDkGff gpLVyV")]//div[@class="sc-492bf320-0 crIwBV"]'
+  topValue: '//div[contains(@class, "sc-cd4cfbdc-0 sc-a2e18b6f-2 hDkGff gpLVyV")]//div[@class="sc-492bf320-0 crIwBV"]',
+  showMorePlayersButton: '//span[contains(@class, "sc-crHmcD cpSmgk") and .="Show more"]'
 };
 
 export default async function handler(req, res) {
@@ -84,6 +85,9 @@ export default async function handler(req, res) {
     await button.click();
     const [filterButton] = await page.$x(nextSelector);
     await filterButton.click();
+    const [showMorePlayersButton] = await page.$x(selectors.showMorePlayersButton) || 0;
+    await showMorePlayersButton && showMorePlayersButton.click();
+
   };
 
   await selectTopCategoryToParse(firstTeamPage, selectors.goalsFilter, selectors.ratingFilter);

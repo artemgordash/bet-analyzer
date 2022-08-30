@@ -2,30 +2,65 @@ import axios from 'axios';
 import TeamColumn from '../components/TeamColumn';
 import Stack from '../components/Stack';
 import { Badge } from '@mui/material';
+import ColumnsStatisticCeil from '../components/ColumnsStatisticCeil';
 
 export default function Home(props) {
   const { teamOne, teamTwo } = props;
   return (
-    <Stack justifyContent={'space-around'}>
-      <TeamColumn
-        team={teamOne}
-        chip={<Badge
-          badgeContent={'Home'}
-          sx={{ left: 30, bottom: 3 }}
-          color={'success'}
-        />}
-        name={teamOne.name}
+    <>
+      <Stack justifyContent={'space-around'}>
+        <TeamColumn
+          team={teamOne}
+          chip={<Badge
+            badgeContent={'Home'}
+            sx={{ left: 30, bottom: 3 }}
+            color={'success'}
+          />}
+          name={teamOne.name}
+        />
+        <TeamColumn
+          chip={<Badge
+            badgeContent={'Guest'}
+            sx={{ left: 30, bottom: 3 }}
+            color={'error'}
+          />}
+          team={teamTwo}
+          name={teamTwo.name}
+        />
+      </Stack>
+      <ColumnsStatisticCeil
+        title={'Top scorers'}
+        firstTeam={teamOne}
+        secondTeam={teamTwo}
+        value={'topScorers'}
       />
-      <TeamColumn
-        chip={<Badge
-          badgeContent={'Guest'}
-          sx={{ left: 30, bottom: 3 }}
-          color={'error'}
-        />}
-        team={teamTwo}
-        name={teamTwo.name}
+      <ColumnsStatisticCeil
+        title={'Top assistents'}
+        firstTeam={teamOne}
+        secondTeam={teamTwo}
+        value={'topAssistents'}
       />
-    </Stack>
+      <ColumnsStatisticCeil
+        title={'Top big chances'}
+        firstTeam={teamOne}
+        secondTeam={teamTwo}
+        value={'topBigChances'}
+      />
+      <ColumnsStatisticCeil
+        disableCeil
+        title={'Top interceptions'}
+        firstTeam={teamOne}
+        secondTeam={teamTwo}
+        value={'topInterceptions'}
+      />
+      <ColumnsStatisticCeil
+        disableCeil
+        title={'Top clearances'}
+        firstTeam={teamOne}
+        secondTeam={teamTwo}
+        value={'topClearance'}
+      />
+    </>
   );
 }
 

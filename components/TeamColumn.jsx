@@ -3,6 +3,7 @@ import Stack from '../components/Stack';
 import styled from '@emotion/styled';
 import StatisticBox from '../components/StatisticBox';
 import { Checkbox, FormControlLabel } from '@mui/material';
+import ColumnsStatisticCeil from './ColumnsStatisticCeil';
 
 const StyledStack = styled(Stack)((props) => ({
   '.title': {
@@ -45,31 +46,6 @@ const TeamColumn = (props) => {
           control={<Checkbox />}
         />
       </Stack>
-      <StatisticBox
-        title={'Top scorers'}
-        team={team}
-        data={team.topScorers}
-      />
-      <StatisticBox
-        title={'Top assistents'}
-        team={team}
-        data={team.topAssistents}
-      />
-      <StatisticBox
-        title={'Top created big chances'}
-        team={team}
-        data={team.topBigChances}
-      />
-      <StatisticBox
-        title={'Top interceptors'}
-        team={team}
-        data={team.topInterceptions}
-      />
-      <StatisticBox
-        title={'Top clearance'}
-        team={team}
-        data={team.topClearance}
-      />
     </StyledStack>
   );
 };
