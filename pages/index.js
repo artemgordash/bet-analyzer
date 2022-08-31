@@ -10,7 +10,6 @@ export default function Home(props) {
     <>
       <Stack justifyContent={'space-around'}>
         <TeamColumn
-          team={teamOne}
           chip={<Badge
             badgeContent={'Home'}
             sx={{ left: 30, bottom: 3 }}
@@ -24,7 +23,6 @@ export default function Home(props) {
             sx={{ left: 30, bottom: 3 }}
             color={'error'}
           />}
-          team={teamTwo}
           name={teamTwo.name}
         />
       </Stack>
@@ -48,6 +46,13 @@ export default function Home(props) {
       />
       <ColumnsStatisticCeil
         disableCeil
+        title={'Top key passes'}
+        firstTeam={teamOne}
+        secondTeam={teamTwo}
+        value={'topKeyPasses'}
+      />
+      <ColumnsStatisticCeil
+        disableCeil
         title={'Top interceptions'}
         firstTeam={teamOne}
         secondTeam={teamTwo}
@@ -59,6 +64,13 @@ export default function Home(props) {
         firstTeam={teamOne}
         secondTeam={teamTwo}
         value={'topClearance'}
+      />
+      <ColumnsStatisticCeil
+        disableCeil
+        title={'Top tackles'}
+        firstTeam={teamOne}
+        secondTeam={teamTwo}
+        value={'topTackles'}
       />
     </>
   );

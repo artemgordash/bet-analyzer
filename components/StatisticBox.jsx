@@ -5,6 +5,7 @@ import SyncIcon from '@mui/icons-material/Sync';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 import { shortFirstName } from '../functions/shortFirstName';
+import { useMemo } from 'react';
 
 
 const StyledStack = styled(Stack)((props) => ({
@@ -33,11 +34,25 @@ const StyledStack = styled(Stack)((props) => ({
 
 const StatisticBox = (props) => {
   const { data, title, team, disableCeilForValue } = props;
-  const totalValue = data.reduce((acc, curr) => acc + Number(curr.value), 0);
-  const startTotalValue = data.reduce((acc, curr) =>
-    team.lineUp.includes(curr.name) || team.lineUp.includes(shortFirstName(curr.name)) ?
-      acc + Number(curr.value)
-      : acc + 0, 0);
+  const totalValue = useMemo(() => data.reduce((acc, curr) => {
+    if (typeof curr.value !== 'undefined') {
+      return (
+        acc + Number(curr.value)
+      );
+    } else {
+      return (acc + 0);
+    }
+  }, 0));
+  const startTotalValue = useMemo(() => data.reduce((acc, curr) => {
+    const isInStartLineup = team.lineUp.includes(curr.name) || team.lineUp.includes(shortFirstName(curr.name));
+    if (typeof curr.value !== 'undefined' && isInStartLineup) {
+      return (
+        acc + Number(curr.value)
+      );
+    } else {
+      return (acc + 0);
+    }
+  }, 0));
 
   return (
     <StyledStack
@@ -71,16 +86,18 @@ const StatisticBox = (props) => {
             <Stack alignSelf={'end'}>
               <span className={'value'}>{player.value}</span>
               {
-                (team.lineUp.includes(player.name) || team.lineUp.includes(shortFirstName(player.name))) ? <DoneIcon
-                  color={'success'}
-                  className={'icon'}
-                /> : (team.substitutions.includes(player.name) || team.substitutions.includes(shortFirstName(player.name))) ? <SyncIcon
-                  color={'info'}
-                  className={'icon'}
-                /> : <CloseIcon
-                  className={'icon'}
-                  color={'error'}
-                />
+                (team.lineUp.includes(player.name) || team.lineUp.includes(shortFirstName(player.name))) ?
+                  <DoneIcon
+                    color={'success'}
+                    className={'icon'}
+                  /> : (team.substitutions.includes(player.name) || team.substitutions.includes(shortFirstName(player.name))) ?
+                    <SyncIcon
+                      color={'info'}
+                      className={'icon'}
+                    /> : <CloseIcon
+                      className={'icon'}
+                      color={'error'}
+                    />
               }
             </Stack>
           </div>)
